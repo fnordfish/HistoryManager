@@ -104,10 +104,13 @@ Both classes use the same options:
 	var HM = new HistoryManager({
 		'delimiter':'!',
 		serializeHash: function (h) {
+			h = h.filter(function (val, key){
+				return key !== '';
+			})
 			return h.toQueryString();
 		},
 		deserializeHash: function (s) {
-			return new Hash(s.parseQueryString());
+			return new Hash( s.length ? s.parseQueryString() : {});
 		}
 	});
 

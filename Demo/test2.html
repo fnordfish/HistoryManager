@@ -22,32 +22,50 @@
 	var HM = new HistoryManager({
 		'delimiter':'!',
 		serializeHash: function (h) {
+			// empty string keys are not healthy for query strings
+			h = h.filter(function (val, key){
+				return key !== '';
+			});
 			return h.toQueryString();
 		},
 		deserializeHash: function (s) {
-			return new Hash(s.parseQueryString());
+			// String.parseQueryString() will produces wierd output for emtpy strings
+			return new Hash( s.length ? s.parseQueryString() : {});
 		}
 	});
 	var res = $('result');
 	var testValues = [
-		['select','L1']
-		,['b','hide']
-		,['select','L1,L2']
-		,['select', ['L1','L2']]
-		,['b','hide']
+		['','foo'],
+		['bar',''],
+		['',''],
+		[false, 'bool'],
+		['select','L1'],
+		['b','hide'],
+		['select','L1,L2'],
+		['select', ['L1','L2']],
+		['b','hide']
 	];
 	
 	$('step').addEvent('click',function(){
 		var value = testValues[i++];
+		console.log(value);
 		HM.set(value[0],value[1]);
 		if (i==4) i=0;
 	});
 	
 	function updateSelect(value){
+		if ('object' == $type(value))
+		{
+			value = JSON.encode(value);
+		}
 		res.adopt(new Element('li',{'html':'select: '+value}));
 	}
 	
 	function updateB(value){
+		if ('object' == $type(value))
+		{
+			value = JSON.encode(value);
+		}
 		res.adopt(new Element('li',{'html':'b: '+value}));
 	}
 	
