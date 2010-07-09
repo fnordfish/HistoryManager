@@ -55,7 +55,7 @@ var HistoryManager = new Class({
 	updateState : function (hash){
 		var $this = this;
 		
-		if (this.options.delimiter) hash = hash.substr(this.options.delimiter.length);
+		if (this.options.delimiter) hash = hash.substr(hash.indexOf(this.options.delimiter) + this.options.delimiter.length);
 
 		hash = this.deserializeHash(hash);
 		
