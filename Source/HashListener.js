@@ -161,6 +161,7 @@ var HashListener = new Class({
 	},
 	start : function(){
 		this.handle = this.checkHash.periodical(100, this);
+		this.fireEvent.delay(110, this, ['started']);
 	},
 	stop : function(){
 		$clear(this.handle);
