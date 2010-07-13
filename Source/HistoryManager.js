@@ -105,6 +105,11 @@ var HistoryManager = new Class({
 		return this;
 	},
 	
+	hasKey : function (key)
+	{
+		return this.state.has(key);
+	},
+	
 	remove : function(key){
 		var newState = new Hash(this.state);
 		
