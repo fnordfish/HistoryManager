@@ -21,7 +21,7 @@ var HistoryManager = new Class({
 	options : {
 		delimiter : '',
 		serializeHash: null,
-		deserializeHash: null,
+		deserializeHash: null
 	}, 
 	
 	state : new Hash({}),
